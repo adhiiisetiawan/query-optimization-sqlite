@@ -143,16 +143,20 @@ public class DataManagerService extends Service {
                 boolean isInsertSuccess;
 
                 try {
+                    mahasiswaHelper.beginTransaction();
                     for (Mahasiswa model : mahasiswaArrayList){
-                        mahasiswaHelper.insert(model);
+                        mahasiswaHelper.insertTransaction(model);
                         progress += progressDiff;
                         publishProgress((int) progress);
                     }
+                    mahasiswaHelper.setTransactionSuccess();
                     isInsertSuccess = true;
                     appPreference.setFirstRun(false);
                 }catch (Exception e){
                     Log.e(TAG, "doInBackground: Exception");
                     isInsertSuccess = false;
+                } finally {
+                    mahasiswaHelper.endTransaction();
                 }
 
                 mahasiswaHelper.close();
