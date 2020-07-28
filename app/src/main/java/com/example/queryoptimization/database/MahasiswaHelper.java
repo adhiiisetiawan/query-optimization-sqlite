@@ -112,12 +112,15 @@ public class MahasiswaHelper {
     public void beginTransaction() {
         database.beginTransaction();
     }
+
     public void setTransactionSuccess() {
         database.setTransactionSuccessful();
     }
+
     public void endTransaction() {
         database.endTransaction();
     }
+
     public void insertTransaction(Mahasiswa mahasiswaModel) {
         String sql = "INSERT INTO " + TABLE_NAME + " (" + NAMA + ", " + NIM + ") VALUES (?, ?)";
         SQLiteStatement stmt = database.compileStatement(sql);
